@@ -1,196 +1,886 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Samyak Bharsakle: Personal Website</title>
-  <link href="https://unpkg.com/lucide@latest/dist/lu.min.css" rel="stylesheet" />
-  <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #111111;
-      --link-color: #111111;
-    }
-
-    body.dark {
-      --bg-color: #111111;
-      --text-color: #f5f5f5;
-      --link-color: #bbbbbb;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 50px;
-      box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    a {
-      color: var(--link-color) !important;
-      text-decoration: none;
-    }
-
-    .landing {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      position: relative;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-color);
-    }
-
-    .theme-toggle svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .svg-container {
-      width: 100%;
-      max-width: 400px;
-      display: inline-block;
-    }
-
-    .svg-container svg text {
-      fill: currentColor;
-    }
-
-    .separator {
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background-color: #e0e0e0;
-      width: 100%;
-      margin: 30px auto;
-    }
-
-    .links-container {
-      font-size: 24px;
-      margin: 20px;
-    }
-
-    .links-container a {
-      margin: 0 15px;
-    }
-
-    .product-photo {
-      display: block;
-      max-width: 640px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .faqtable dt {
-      margin-bottom: 0.75em;
-      font-style: italic;
-    }
-
-    .faqtable dd {
-      margin-left: 0;
-      margin-bottom: 2em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samyak Bharsakle: Personal Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1a1b26;
+            color: #c0caf5;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .vim-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tabline {
+            background: #16161e;
+            border-bottom: 1px solid #414868;
+            display: flex;
+            padding: 0;
+            font-size: 14px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            background: #16161e;
+            color: #9aa5ce;
+            border-right: 1px solid #414868;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .tab:hover {
+            background: #24283b;
+            color: #c0caf5;
+        }
+        
+        .tab.active {
+            background: #1a1b26;
+            color: #c0caf5;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #1a1b26;
+        }
+        
+        .buffer {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+            position: relative;
+        }
+        
+        .buffer.active {
+            display: block;
+        }
+        
+        .buffer::before {
+            content: attr(data-filename);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 20px;
+            background: #16161e;
+            color: #9aa5ce;
+            font-size: 12px;
+            border-bottom: 1px solid #24283b;
+        }
+        
+        .buffer-content {
+            margin-top: 40px;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #c0caf5;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        h2 {
+            color: #c0caf5;
+            font-size: 18px;
+            margin: 20px 0 12px 0;
+        }
+        
+        h3 {
+            color: #c0caf5;
+            font-size: 16px;
+            margin: 16px 0 8px 0;
+        }
+        
+        .keyword {
+            color: #bb9af7;
+            font-weight: 500;
+        }
+        
+        .string {
+            color: #c0caf5;
+        }
+        
+        .comment {
+            color: #565f89;
+            font-style: italic;
+        }
+        
+        .function {
+            color: #7aa2f7;
+        }
+        
+        .variable {
+            color: #9aa5ce;
+        }
+        
+        .link {
+            color: #7aa2f7;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        ul {
+            list-style: none;
+            margin: 12px 0;
+        }
+        
+        li {
+            margin: 8px 0;
+            position: relative;
+        }
+        
+        li::before {
+            content: '•';
+            color: #7aa2f7;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .numbered-list {
+            counter-reset: item;
+        }
+        
+        .numbered-list li::before {
+            content: counter(item) '.';
+            counter-increment: item;
+            color: #7aa2f7;
+            font-weight: 500;
+        }
+        
+        .status-line {
+            background: #16161e;
+            color: #c0caf5;
+            padding: 6px 20px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #24283b;
+        }
+        
+        .mode {
+            color: #c0caf5;
+            font-weight: 500;
+        }
+        
+        .cursor-line {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 0 -20px;
+            padding: 0 20px;
+        }
+        
+        .emphasis {
+            color: #c0caf5;
+            font-weight: 700;
+        }
+        
+        .muted {
+            color: #9aa5ce;
+        }
+        
+        .command-line {
+            background: #16161e;
+            color: #c0caf5;
+            padding: 8px 20px;
+            font-size: 14px;
+            border-top: 1px solid #24283b;
+        }
+        
+        .prompt {
+            color: #9aa5ce;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+            background: #c0caf5;
+            color: #1a1b26;
+        }
+        
+        .project-item {
+            margin: 16px 0;
+            padding: 12px;
+            background: rgba(36, 40, 59, 0.5);
+            border-left: 3px solid #7aa2f7;
+        }
+        
+        .project-title {
+            color: #7aa2f7;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .project-title a {
+            text-decoration: underline;
+        }
+        
+        .project-desc {
+            color: #a9b1d6;
+            margin-left: 20px;
+        }
+        
+        .contact-item {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-label {
+            color: #c0caf5;
+            width: 120px;
+            display: inline-block;
+        }
+        
+        .blog-post {
+            margin: 16px 0;
+            padding: 12px;
+            background: rgba(36, 40, 59, 0.3);
+            border-left: 3px solid #7aa2f7;
+        }
+        
+        .post-title {
+            color: #7aa2f7;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .post-parts {
+            margin-left: 20px;
+            color: #a9b1d6;
+        }
+    </style>
 </head>
 <body>
-  <div class="landing">
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-      <svg xmlns="http://www.w3.org/2000/svg" class="lucide lucide-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
-      </svg>
-    </button>
-
-    <div class="svg-container">
-      <svg viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="35" font-family="'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="28" font-weight="bold" fill="currentColor">
-          &gt;&gt; samyak
-        </text>
-      </svg>
+    <div class="vim-container">
+        <div class="tabline">
+            <div class="tab active" data-buffer="home">home.md</div>
+            <div class="tab" data-buffer="about">about.md</div>
+            <div class="tab" data-buffer="projects">projects.md</div>
+            <div class="tab" data-buffer="blog">blog.md</div>
+            <div class="tab" data-buffer="contact">contact.md</div>
+            <div class="tab" data-buffer="fund">fund.md</div>
+        </div>
+        
+        <div class="buffer active" id="home" data-filename="~/samyak/home.md">
+            <div class="buffer-content">
+                <h1><span class="emphasis">Samyak Bharsakle</span>: Personal Website</h1>
+                
+                <div class="cursor-line">
+                <h2>Welcome</h2>
+                </div>
+                
+                <p>i'm <span class="emphasis">samyak</span>, a <span class="variable">21</span> year old <span class="keyword">cs undergrad</span>.</p>
+                <br>
+                <p>Currently, I am:</p>
+                <ul>
+                    <li>Working on building <span class="function">agentic systems</span>.</li>
+                    <li>Experimenting with how companies can use <span class="string">agents</span> to reduce operational overhead.</li>
+                    <li>Involved in a research project on <span class="function">early parkinson's detection</span> <span class="comment">(paused for now)</span>.</li>
+                </ul>
+                
+                <br>
+                
+                <p class="muted">// Navigate using the tabs above or vim-style commands</p>
+                <p class="muted">// :help for more information</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="about" data-filename="~/samyak/about.md">
+            <div class="buffer-content">
+                <h1>About Me</h1>
+                
+                <div class="cursor-line">
+                <p><span class="keyword">interested</span> in <span class="function">agents</span>, <span class="function">preventive healthcare</span>, and figuring out how to apply both. spend time testing ideas, exploring random topics with <span class="variable">notebooklm</span>, and watching <span class="string">anime</span>. mostly trying to find <span class="emphasis">problems worth solving</span>.</p>
+                </div>
+                
+                <br>
+                
+                <h2>Current Focus</h2>
+                <ul>
+                    <li><span class="function">Building agentic systems</span> for operational efficiency</li>
+                    <li><span class="function">Researching healthcare applications</span> of AI</li>
+                    <li><span class="keyword">Experimenting</span> with new technologies and frameworks</li>
+                </ul>
+                
+                <h2>Interests</h2>
+                <ul>
+                    <li><span class="string">Machine Learning & AI</span></li>
+                    <li><span class="string">Healthcare Technology</span></li>
+                    <li><span class="string">Systems Design</span></li>
+                    <li><span class="string">Anime & Manga</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="buffer" id="projects" data-filename="~/samyak/projects.md">
+            <div class="buffer-content">
+                <h1>Projects</h1>
+                
+                <h2>Current and Upcoming Work</h2>
+                
+                <div class="project-item">
+                    <div class="project-title"><a href="https://github.com/samyak1729/deep-research-agent" target="_blank" class="link"><span class="function">deep research from scratch</span></a> <span class="comment">(ongoing)</span></div>
+                    <div class="project-desc">
+                        <ul>
+                            <li>a fork of google's open source <a href="https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart" target="_blank" class="link">repo</a> about langgraph quickstart.</li>
+                            <li>the original repo has multiple issues (langchain + search rate limits)</li>
+                            <li>both of them are fixed in my fork</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-title"><span class="function">chatbot with tool call</span></div>
+                    <div class="project-desc">
+                        <p>• Currently undergoing updates. The bot integrates with external tools to enhance user interaction.</p>
+                    </div>
+                </div>
+                
+                <div class="cursor-line">
+                <h2>Future Ideas</h2>
+                </div>
+                
+                <ul>
+                    <li><span class="emphasis">**browser agent from scratch**</span></li>
+                    <li><span class="emphasis">**toy Agentic framework**</span></li>
+                </ul>
+                
+                <br>
+                <p class="comment">// More projects coming soon...</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="blog" data-filename="~/samyak/blog.md">
+            <div class="buffer-content">
+                <h1>Blog</h1>
+                
+                <h2>Writings on</h2>
+                <ul>
+                    <li><span class="keyword">building agents</span></li>
+                    <li><span class="keyword">research experiments</span></li>
+                    <li><span class="keyword">whatever's currently breaking</span></li>
+                </ul>
+                
+                <div class="cursor-line">
+                <h2>Posts</h2>
+                </div>
+                
+                <div class="blog-post">
+                    <div class="post-title"><span class="function">RAG for Beginners (3-part series)</span></div>
+                    <div class="post-parts">
+                        <p>• <span class="string">Part 1</span>: building ingestion and chunking from scratch</p>
+                        <p>• <span class="string">Part 2</span>: adding embeddings + vector store with <span class="variable">cohere</span> + <span class="variable">pinecone</span></p>
+                        <p>• <span class="string">Part 3</span>: querying with <span class="variable">gemini 2.0 flash</span></p>
+                    </div>
+                </div>
+                
+                <div class="blog-post">
+                    <div class="post-title"><span class="function">deep research from scratch</span> <span class="comment">– coming soon</span></div>
+                </div>
+                
+                <br>
+                <p class="muted">// Subscribe for updates on new posts</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="contact" data-filename="~/samyak/contact.md">
+            <div class="buffer-content">
+                <h1>Contact</h1>
+                
+                <div class="cursor-line">
+                <h2>Reach me via</h2>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">Twitter</span>:</span>
+                    <span class="link"> @samyak_bharsakle</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">LinkedIn</span>:</span>
+                    <span class="link">linkedin.com/in/samyak-bharsakle</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">Email</span>:</span>
+                    <span class="string">samyak5jan @gmail.com</span>
+                </div>
+                
+                <br>
+                <br>
+                
+                <p class="muted">// Feel free to reach out for collaborations, questions, or just to chat!</p>
+                <p class="muted">// Response time: usually within 24-48 hours</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="fund" data-filename="~/samyak/fund.md">
+            <div class="buffer-content">
+                <h1>Fund My Thinkpad</h1>
+                
+                <div class="cursor-line">
+                <p><span class="keyword">if</span> you have found my <span class="string">blogs</span> or <span class="string">tweets</span> helpful you can <span class="function">fund my thinkpad</span></p>
+                </div>
+                
+                <br>
+                
+                <h2>Support</h2>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">PayPal</span>:</span>
+                    <span class="link">paypal.me/SamyakBharsakle</span>
+                </div>
+                
+                <br>
+                <br>
+                
+                <p class="comment">// Every contribution helps me continue creating content</p>
+                <p class="comment">// and working on open source projects</p>
+                <p class="comment">// Much appreciated! </p>
+                
+                <br>
+                
+                <p class="muted">// Current goal: New ThinkPad for development work</p>
+                <p class="muted">// Progress: [████████░░] 80%</p>
+            </div>
+        </div>
+        
+        <div class="status-line">
+            <div>
+                <span class="mode">NORMAL</span> 
+                <span id="current-file">~/samyak/home.md</span>
+            </div>
+            <div>
+                <span id="cursor-pos">1,1</span>
+                <span>All</span>
+                <span>utf-8</span>
+                <span>markdown</span>
+            </div>
+        </div>
+        
+        <div class="command-line">
+            <span class="prompt">:</span><span class="cursor">█</span>
+        </div>
     </div>
 
-    <div class="links-container">
-      <a href="#intro">home</a><span class="separator">|</span>
-      <a href="#about">about me</a><span class="separator">|</span>
-      <a href="#projects">projects</a><span class="separator">|</span>
-      <a href="#blog">blog</a><span class="separator">|</span>
-      <a href="#contact">contact</a><span class="separator">|</span>
-      <a href="#fund">fund</a>
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const buffers = document.querySelectorAll('.buffer');
+        const currentFile = document.getElementById('current-file');
+        const cursorPos = document.getElementById('cursor-pos');
+        
+        // Switch tabs
+        function switchTab(targetBuffer) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buffers.forEach(buffer => buffer.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-buffer="${targetBuffer}"]`);
+            const activeBuffer = document.getElementById(targetBuffer);
+            
+            if (activeTab && activeBuffer) {
+                activeTab.classList.add('active');
+                activeBuffer.classList.add('active');
+                currentFile.textContent = activeBuffer.dataset.filename;
+                
+                // Update cursor position (mock)
+                const randomLine = Math.floor(Math.random() * 20) + 1;
+                const randomCol = Math.floor(Math.random() * 40) + 1;
+                cursorPos.textContent = `${randomLine},${randomCol}`;
+            }
+        }
+        
+        // Tab click handlers
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetBuffer = tab.dataset.buffer;
+                switchTab(targetBuffer);
+            });
+        });
+        
+        // Keyboard navigation (vim-like)
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '6') {
+                const bufferNames = ['home', 'about', 'projects', 'blog', 'contact', 'fund'];
+                const index = parseInt(e.key) - 1;
+                if (bufferNames[index]) {
+                    switchTab(bufferNames[index]);
+                }
+            }
+            
+            // Add more vim-like keybindings
+            if (e.key === 'h' && e.ctrlKey) {
+                e.preventDefault();
+                switchTab('home');
+            }
+        });
+        
+        // Make links interactive
+        document.querySelectorAll('.link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (link.textContent.includes(' @')) {
+                    window.open('https://twitter.com/' + link.textContent.replace(' @', ''), '_blank');
+                } else if (link.textContent.includes('linkedin.com')) {
+                    window.open('https://' + link.textContent, '_blank');
+                } else if (link.textContent.includes('paypal.me')) {
+                    window.open('https://' + link.textContent, '_blank');
+                }
+            });
+        });
+        
+        // Initialize
+        
+        // Simulate typing effect on command line
+        setInterval(() => {
+            const cursor = document.querySelector('.cursor');
+            if (cursor) {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
+        }, 500);
+    </script>
+</body>
+</html>
+</head>
+<body>
+    <div class="vim-container">
+        <div class="tabline">
+            <div class="tab active" data-buffer="home">home.md</div>
+            <div class="tab" data-buffer="about">about.md</div>
+            <div class="tab" data-buffer="projects">projects.md</div>
+            <div class="tab" data-buffer="blog">blog.md</div>
+            <div class="tab" data-buffer="contact">contact.md</div>
+            <div class="tab" data-buffer="fund">fund.md</div>
+        </div>
+        
+        <div class="buffer active" id="home" data-filename="~/samyak/home.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># <span class="emphasis">Samyak Bharsakle</span>: Personal Website</h1>
+                
+                <div class="cursor-line">
+                <h2>## Welcome</h2>
+                </div>
+                
+                <p>i'm <span class="emphasis">samyak</span>, a <span class="variable">21</span> year old <span class="keyword">cs undergrad</span>.</p>
+                <br>
+                <p>Currently, I am:</p>
+                <ul>
+                    <li>Working on building <span class="function">agentic systems</span>.</li>
+                    <li>Experimenting with how companies can use <span class="string">agents</span> to reduce operational overhead.</li>
+                    <li>Involved in a research project on <span class="function">early parkinson's detection</span> <span class="comment">(paused for now)</span>.</li>
+                </ul>
+                
+                <br>
+                
+                <p class="muted">// Navigate using the tabs above or vim-style commands</p>
+                <p class="muted">// :help for more information</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="about" data-filename="~/samyak/about.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># About Me</h1>
+                
+                <div class="cursor-line">
+                <p><span class="keyword">interested</span> in <span class="function">agents</span>, <span class="function">preventive healthcare</span>, and figuring out how to apply both. spend time testing ideas, exploring random topics with <span class="variable">notebooklm</span>, and watching <span class="string">anime</span>. mostly trying to find <span class="emphasis">problems worth solving</span>.</p>
+                </div>
+                
+                <br>
+                
+                <h2>## Current Focus</h2>
+                <ul>
+                    <li><span class="function">Building agentic systems</span> for operational efficiency</li>
+                    <li><span class="function">Researching healthcare applications</span> of AI</li>
+                    <li><span class="keyword">Experimenting</span> with new technologies and frameworks</li>
+                </ul>
+                
+                <h2>## Interests</h2>
+                <ul>
+                    <li><span class="string">Machine Learning & AI</span></li>
+                    <li><span class="string">Healthcare Technology</span></li>
+                    <li><span class="string">Systems Design</span></li>
+                    <li><span class="string">Anime & Manga</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="buffer" id="projects" data-filename="~/samyak/projects.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># Projects</h1>
+                
+                <h2>## Current and Upcoming Work</h2>
+                
+                <div class="project-item">
+                    <div class="project-title"><a href="https://github.com/samyak1729/deep-research-agent" target="_blank" class="link"><span class="function">deep research from scratch</span></a> <span class="comment">(ongoing)</span></div>
+                    <div class="project-desc">
+                        <ul>
+                            <li>a fork of google's open source <a href="https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart" target="_blank" class="link">repo</a> about langgraph quickstart.</li>
+                            <li>the original repo has multiple issues (langchain + search rate limits)</li>
+                            <li>both of them are fixed in my fork</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-title"><span class="function">chatbot with tool call</span></div>
+                    <div class="project-desc">
+                        <p>• Currently undergoing updates. The bot integrates with external tools to enhance user interaction.</p>
+                    </div>
+                </div>
+                
+                <div class="cursor-line">
+                <h2>## Future Ideas</h2>
+                </div>
+                
+                <ul>
+                    <li><span class="emphasis">**browser agent from scratch**</span></li>
+                    <li><span class="emphasis">**toy Agentic framework**</span></li>
+                </ul>
+                
+                <br>
+                <p class="comment">// More projects coming soon...</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="blog" data-filename="~/samyak/blog.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># Blog</h1>
+                
+                <h2>## Writings on</h2>
+                <ul>
+                    <li><span class="keyword">building agents</span></li>
+                    <li><span class="keyword">research experiments</span></li>
+                    <li><span class="keyword">whatever's currently breaking</span></li>
+                </ul>
+                
+                <div class="cursor-line">
+                <h2>## Posts</h2>
+                </div>
+                
+                <div class="blog-post">
+                    <div class="post-title"><span class="function">RAG for Beginners (3-part series)</span></div>
+                    <div class="post-parts">
+                        <p>• <span class="string">Part 1</span>: building ingestion and chunking from scratch</p>
+                        <p>• <span class="string">Part 2</span>: adding embeddings + vector store with <span class="variable">cohere</span> + <span class="variable">pinecone</span></p>
+                        <p>• <span class="string">Part 3</span>: querying with <span class="variable">gemini 2.0 flash</span></p>
+                    </div>
+                </div>
+                
+                <div class="blog-post">
+                    <div class="post-title"><span class="function">deep research from scratch</span> <span class="comment">– coming soon</span></div>
+                </div>
+                
+                <br>
+                <p class="muted">// Subscribe for updates on new posts</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="contact" data-filename="~/samyak/contact.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># Contact</h1>
+                
+                <div class="cursor-line">
+                <h2>## Reach me via</h2>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">Twitter</span>:</span>
+                    <span class="link"> @samyak_bharsakle</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">LinkedIn</span>:</span>
+                    <span class="link">linkedin.com/in/samyak-bharsakle</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">Email</span>:</span>
+                    <span class="string">samyak5jan @gmail.com</span>
+                </div>
+                
+                <br>
+                <br>
+                
+                <p class="muted">// Feel free to reach out for collaborations, questions, or just to chat!</p>
+                <p class="muted">// Response time: usually within 24-48 hours</p>
+            </div>
+        </div>
+        
+        <div class="buffer" id="fund" data-filename="~/samyak/fund.md">
+            <div class="line-numbers"></div>
+            <div class="buffer-content">
+                <h1># Fund My Thinkpad</h1>
+                
+                <div class="cursor-line">
+                <p><span class="keyword">if</span> you have found my <span class="string">blogs</span> or <span class="string">tweets</span> helpful you can <span class="function">fund my thinkpad</span></p>
+                </div>
+                
+                <br>
+                
+                <h2>## Support</h2>
+                
+                <div class="contact-item">
+                    <span class="contact-label"><span class="keyword">PayPal</span>:</span>
+                    <span class="link">paypal.me/SamyakBharsakle</span>
+                </div>
+                
+                <br>
+                <br>
+                
+                <p class="comment">// Every contribution helps me continue creating content</p>
+                <p class="comment">// and working on open source projects</p>
+                <p class="comment">// Much appreciated! </p>
+                
+                <br>
+                
+                <p class="muted">// Current goal: New ThinkPad for development work</p>
+                <p class="muted">// Progress: [████████░░] 80%</p>
+            </div>
+        </div>
+        
+        <div class="status-line">
+            <div>
+                <span class="mode">NORMAL</span> 
+                <span id="current-file">~/samyak/home.md</span>
+            </div>
+            <div>
+                <span id="cursor-pos">1,1</span>
+                <span>All</span>
+                <span>utf-8</span>
+                <span>markdown</span>
+            </div>
+        </div>
+        
+        <div class="command-line">
+            <span class="prompt">:</span><span class="cursor">█</span>
+        </div>
     </div>
-  </div>
 
-  <hr>
-  <h2 id="intro">welcome</h2>
-  <p>i'm <strong>samyak</strong>. 21. cs undergrad. currently working on building agentic systems. experimenting with how companies — tech and non-tech — can use agents to reduce operational overhead. also involved in a research project on early parkinson’s detection (paused for now).</p>
-
-  <hr>
-  <h2 id="about">about me</h2>
-  <p>interested in agents, preventive healthcare, and figuring out how to apply both. spend time testing ideas, exploring random topics with notebooklm, and watching anime. mostly trying to find problems worth solving.</p>
-
-  <hr>
-  <h2 id="projects">projects</h2>
-  <p>Here’s a list of current and upcoming work:</p>
-  <ul>
-    <li><strong><a href="https://github.com/samyak1729/deep-research-agent">deep research from scratch</a></strong> (ongoing)
-      <ul>
-        <li>rough implementation of deep research as seen in chatgpt, grok, gemini, etc</li>
-        <li>makes use of gemini 1.5 flash and tavily for websearch</li>
-      </ul>
-    </li>
-    <li><strong>chatbot with tool call</strong>
-      <ul>
-        <li>Currently undergoing updates. The bot integrates with external tools to enhance user interaction.</li>
-      </ul>
-    </li>
-  </ul>
-  <p>future ideas:</p>
-  <ul>
-    <li><strong>browser agent from scratch</strong></li>
-    <li><strong>toy Agentic framework</strong></li>
-  </ul>
-
-  <hr>
-  <h2 id="blog">blog</h2>
-  <p>writings on building agents, research experiments, and whatever’s currently breaking.</p>
-  <ul>
-    <li><strong>RAG for Beginners (3-part series)</strong>
-      <ul>
-        <li><a href="https://www.notion.so/samyak-b/RAG-for-Beginners-Part-1-Building-Ingestion-and-Chunking-from-Scratch-1bfd0f70812080dc9063f9ba51d70df9">part 1</a> – building ingestion and chunking from scratch.</li>
-        <li><a href="https://www.notion.so/samyak-b/RAG-for-Beginners-Part-2-Adding-Embeddings-and-a-Vector-Store-with-Cohere-and-Pinecone-1d2d0f70812080f09258e1cf78e335f2">part 2</a> – adding embeddings + vector store with cohere + pinecone.</li>
-        <li><a href="https://www.notion.so/samyak-b/RAG-for-Beginners-Part-3-Adding-an-LLM-with-Gemini-2-0-Flash-1d2d0f70812080e5b199f79fa16bb712">part 3</a> – querying with gemini 2.0 flash.</li>
-      </ul>
-    </li>
-    <li><strong>deep research from scratch</strong> – coming soon.</li>
-  </ul>
-
-  <hr>
-  <h2 id="contact">contact</h2>
-  <p>feel free to reach out to me via <a href="https://x.com/samyak1729">twitter</a>, <a href="https://www.linkedin.com/in/samyak-bharsakle-15ba88292">linkedin</a>, or email me at <a href="mailto:samyak5jan@gmail.com">samyak5jan@gmail.com</a>.</p>
-
-  <hr>
-  <h2 id="fund">fund my thinkpad</h2>
-  <p>if you have found my blogs or tweets helpful you can fund my thinkpad</p>
-  <p><a href="https://paypal.me/SamyakBharsakle?country.x=IN&locale.x=en_GB">paypal.me/SamyakBharsakle</a></p>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-    }
-  </script>
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const buffers = document.querySelectorAll('.buffer');
+        const currentFile = document.getElementById('current-file');
+        const cursorPos = document.getElementById('cursor-pos');
+        
+        // Line numbers generation
+        function generateLineNumbers() {
+            const lineNumbersElements = document.querySelectorAll('.line-numbers');
+            lineNumbersElements.forEach(el => {
+                const buffer = el.parentElement;
+                const content = buffer.querySelector('.buffer-content');
+                const lines = content.innerHTML.split('\n').length + content.querySelectorAll('p, h1, h2, h3, div, li').length;
+                
+                let lineNumbers = '';
+                for (let i = 1; i <= Math.max(20, lines); i++) {
+                    lineNumbers += i + '\n';
+                }
+                el.innerHTML = '<pre>' + lineNumbers + '</pre>';
+            });
+        }
+        
+        // Switch tabs
+        function switchTab(targetBuffer) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buffers.forEach(buffer => buffer.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-buffer="${targetBuffer}"]`);
+            const activeBuffer = document.getElementById(targetBuffer);
+            
+            if (activeTab && activeBuffer) {
+                activeTab.classList.add('active');
+                activeBuffer.classList.add('active');
+                currentFile.textContent = activeBuffer.dataset.filename;
+                
+                // Update cursor position (mock)
+                const randomLine = Math.floor(Math.random() * 20) + 1;
+                const randomCol = Math.floor(Math.random() * 40) + 1;
+                cursorPos.textContent = `${randomLine},${randomCol}`;
+            }
+        }
+        
+        // Tab click handlers
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetBuffer = tab.dataset.buffer;
+                switchTab(targetBuffer);
+            });
+        });
+        
+        // Keyboard navigation (vim-like)
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '6') {
+                const bufferNames = ['home', 'about', 'projects', 'blog', 'contact', 'fund'];
+                const index = parseInt(e.key) - 1;
+                if (bufferNames[index]) {
+                    switchTab(bufferNames[index]);
+                }
+            }
+            
+            // Add more vim-like keybindings
+            if (e.key === 'h' && e.ctrlKey) {
+                e.preventDefault();
+                switchTab('home');
+            }
+        });
+        
+        // Make links interactive
+        document.querySelectorAll('.link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (link.textContent.includes(' @')) {
+                    window.open('https://twitter.com/' + link.textContent.replace(' @', ''), '_blank');
+                } else if (link.textContent.includes('linkedin.com')) {
+                    window.open('https://' + link.textContent, '_blank');
+                } else if (link.textContent.includes('paypal.me')) {
+                    window.open('https://' + link.textContent, '_blank');
+                }
+            });
+        });
+        
+        // Initialize
+        generateLineNumbers();
+        
+        // Simulate typing effect on command line
+        setInterval(() => {
+            const cursor = document.querySelector('.cursor');
+            if (cursor) {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
+        }, 500);
+    </script>
 </body>
 </html>
