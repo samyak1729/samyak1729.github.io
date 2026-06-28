@@ -75,6 +75,8 @@
         .nav-right {
             display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
         }
@@ -506,7 +508,7 @@
         /* Responsive */
         @media (max-width: 640px) {
             main {
-                padding: 6rem 1.25rem 3rem;
+                padding: 7.25rem 1.25rem 3rem;
             }
 
             nav {
@@ -514,7 +516,8 @@
             }
 
             .nav-right {
-                gap: 1rem;
+                gap: 0.5rem 0.75rem;
+                font-size: 0.68rem;
             }
 
             .hero h1 {
@@ -545,6 +548,7 @@
         <span class="nav-left">samyak</span>
         <div class="nav-right">
             <a href="#about">about</a>
+            <a href="#experience">experience</a>
             <a href="#projects">projects</a>
             <a href="#oss">oss</a>
             <a href="#writing">writing</a>
@@ -557,7 +561,7 @@
         <section class="hero">
             <h1>Samyak <em>shapes narratives</em> around developer tools & deeptech.</h1>
             <p class="lead">
-                DevRel @ heart. Deeply invested in agents, RAG, and the infrastructure powering the next generation of builders. 
+                DevRel @ heart. Currently leading growth at Quarq Labs after starting there as a technical writing intern. Deeply invested in agents, RAG, and the infrastructure powering the next generation of builders.
                 <a href="#contact">Let's talk.</a>
             </p>
             <div class="hero-stats">
@@ -577,6 +581,9 @@
                 Looking back, I've always been doing DevRel—building communities, creating content, 
                 and helping people navigate complex technical landscapes. The title just didn't exist yet.
             </p>
+            <p>
+                At Quarq Labs, I started as a pure technical writer during a 3-month internship and grew into leading growth: turning deep technical work into clear narratives, launch moments, and distribution.
+            </p>
             <div class="impact-highlight">
                 <div class="impact-stat">
                     <strong>~10k</strong>
@@ -595,6 +602,27 @@
                 <span>rag</span>
                 <span>communities</span>
                 <span>deeptech</span>
+            </div>
+        </section>
+
+        <section id="experience" class="fade-in">
+            <div class="section-label">Experience</div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>
+                        Quarq Labs
+                        <span class="status github">growth</span>
+                    </h3>
+                    <p>Started as a technical writing intern on a 3-month stint, writing deeply technical pieces for an embodied intelligence startup. Now leading growth across narrative, content strategy, launches, and distribution, including growing @quarqlabs on X from 100 to 1k followers in under a month.</p>
+                    <div class="links">
+                        <a href="https://x.com/quarqlabs/articles" target="_blank">
+                            articles
+                        </a>
+                        <a href="https://quarq.io" target="_blank">
+                            website
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -766,6 +794,51 @@
             <div class="section-label">Writing</div>
             <ul class="writing-list">
                 <li>
+                    <a href="https://samyak1729.github.io/hermes-blog/" target="_blank">
+                        <span class="title">Understanding Hermes From An Agentic Memory Perspective</span>
+                        <span>
+                            <span class="tag">agents</span>
+                            <span class="meta">Apr 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/quarqlabs/articles" target="_blank">
+                        <span class="title">Quarq Labs Articles Index</span>
+                        <span>
+                            <span class="tag">growth</span>
+                            <span class="meta">x articles</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/quarqlabs/status/2061571757488972153" target="_blank">
+                        <span class="title">98.2% on LongMemEval: How We Built an Open-Source Agent That Actually Remembers</span>
+                        <span>
+                            <span class="tag">agents</span>
+                            <span class="meta">Jun 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/quarqlabs/status/2064405734981505465" target="_blank">
+                        <span class="title">The Map of Robot Learning</span>
+                        <span>
+                            <span class="tag">robotics</span>
+                            <span class="meta">Jun 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/quarqlabs/articles" target="_blank">
+                        <span class="title">The Tooling Gap in Robot Learning</span>
+                        <span>
+                            <span class="tag">robotics</span>
+                            <span class="meta">Jun 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
                     <a href="https://www.notion.so/samyak-b/Docuflow-rag-1d8d0f70812080178bb8c21eef74661c" target="_blank">
                         <span class="title">RAG from Scratch Series</span>
                         <span>
@@ -908,7 +981,7 @@
     <footer>
         <div class="social-links">
             <a href="https://github.com/samyak1729" target="_blank">github</a>
-            <a href="https://linkedin.com/in/samyak" target="_blank">linkedin</a>
+            <a href="https://www.linkedin.com/in/samyak-bharsakle/" target="_blank">linkedin</a>
             <a href="https://twitter.com/smykx" target="_blank">twitter</a>
         </div>
         <p>samyak — building in public</p>
