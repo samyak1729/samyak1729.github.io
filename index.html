@@ -3,1022 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samyak — DevRel, Deeptech, Agents</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23111' width='100' height='100'/><text y='.9em' x='50%' text-anchor='middle' font-size='70'>s</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Samyak Bharsakle</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23111' width='100' height='100'/><text y='.9em' x='50%' text-anchor='middle' font-size='70' fill='white'>s</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --bg: #faf9f7;
-            --text: #1a1a1a;
-            --text-muted: #666;
-            --accent: #c44;
-            --border: #e0ddd8;
-            --code-bg: #f0eeea;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        ::selection {
-            background: var(--text);
-            color: var(--bg);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Source Serif 4', Georgia, serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.85;
-            font-size: 18px;
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
         }
-
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
+        .serif-heading {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            letter-spacing: -0.02em;
         }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg);
-            z-index: 100;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
+        .gradient-button {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
         }
-
-        nav.scrolled {
-            border-color: var(--border);
+        .gradient-button:hover {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transform: translateY(-1px);
         }
-
-        .nav-left {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0;
+        .nav-container {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 999px;
         }
-
-        .nav-right {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+        .prose h2, .prose h3 {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            letter-spacing: -0.02em;
         }
-
-        .nav-right a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
+        .prose p {
+            color: #4a4a4a;
+            line-height: 1.8;
         }
-
-        .nav-right a:hover {
-            color: var(--text);
+        .prose a {
+            color: #1a1a1a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
-
-        /* Main Content */
-        main {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
+        .prose li {
+            color: #4a4a4a;
+            line-height: 1.7;
         }
-
-        /* Hero */
-        .hero {
-            margin-bottom: 6rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 400;
-            line-height: 1.15;
-            margin-bottom: 2rem;
-            letter-spacing: -0.01em;
-        }
-
-        .hero h1 em {
+        .meta {
+            color: #9ca3af;
             font-style: italic;
-            color: var(--text-muted);
         }
-
-        .hero .lead {
-            font-size: 1.35rem;
-            color: var(--text-muted);
-            max-width: 560px;
-        }
-
-        .hero .lead a {
-            color: var(--text);
-            text-decoration: underline;
-            text-decoration-color: var(--border);
-            text-underline-offset: 4px;
-            transition: text-decoration-color 0.2s;
-        }
-
-        .hero .lead a:hover {
-            text-decoration-color: var(--text);
-        }
-
-        .hero-stats {
-            margin-top: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: var(--code-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-        }
-
-        .hero-stats .divider {
-            color: var(--border);
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 6rem;
-        }
-
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* About */
-        .about p {
-            margin-bottom: 1.75rem;
-            font-size: 1.1rem;
-        }
-
-        .about .interests {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .about .interests span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 0.4rem 0.8rem;
-            background: var(--code-bg);
-            border-radius: 4px;
-        }
-
-        .impact-highlight {
-            display: flex;
-            gap: 3rem;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--code-bg);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 8px 8px 0;
-        }
-
-        .impact-stat {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .impact-stat strong {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            line-height: 1;
-        }
-
-        .impact-stat span {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .project-card {
-            background: var(--bg);
-            padding: 1.75rem;
-            transition: background 0.2s;
-        }
-
-        .project-card:hover {
-            background: var(--code-bg);
-        }
-
-        .project-card h3 {
-            font-size: 1.15rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .project-card h3 a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .project-card h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .project-card .status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 3px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .status.colab {
-            background: #eee;
-            color: #555;
-        }
-
-        .status.github {
-            background: var(--text);
-            color: var(--bg);
-        }
-
-        .status.wip {
-            background: #fef3cd;
-            color: #856404;
-        }
-
-        .project-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-        }
-
-        .project-card .links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-card .links a {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .project-card .links a:hover {
-            color: var(--text);
-        }
-
-        /* Writing */
-        .writing-list {
-            list-style: none;
-        }
-
-        .writing-list li {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .writing-list li:last-child {
-            border-bottom: none;
-        }
-
-        .writing-list a {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 1.25rem 0;
-            color: var(--text);
-            text-decoration: none;
-            gap: 2rem;
-        }
-
-        .writing-list a:hover .title {
-            text-decoration: underline;
-            text-decoration-color: var(--border);
-            text-underline-offset: 4px;
-        }
-
-        .writing-list .title {
-            font-size: 1.05rem;
-        }
-
-        .writing-list .meta {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-
-        .writing-list .tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            padding: 0.15rem 0.4rem;
-            background: var(--code-bg);
-            border-radius: 3px;
-            color: var(--text-muted);
-            margin-right: 0.5rem;
-        }
-
-        /* Testimonials */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--text-muted);
-        }
-
-        .testimonial-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            cursor: pointer;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-
-        /* Resources */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .resource-card {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .resource-card:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-
-        .resource-card h3 {
-            font-size: 1rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-        }
-
-        .resource-card h3 a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .resource-card h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .resource-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* CTA */
-        .cta {
-            text-align: center;
-            padding: 4rem 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cta h2 {
-            font-size: 1.75rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-        }
-
-        .cta p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .cta .cal-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            padding: 0.9rem 1.5rem;
-            background: var(--text);
-            color: var(--bg);
-            text-decoration: none;
-            border-radius: 6px;
-            transition: opacity 0.2s;
-        }
-
-        .cta .cal-btn:hover {
-            opacity: 0.8;
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: var(--text);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive */
         @media (max-width: 640px) {
-            main {
-                padding: 7.25rem 1.25rem 3rem;
+            .serif-heading {
+                font-size: 1.875rem;
             }
-
-            nav {
-                padding: 1rem 1.25rem;
+            .prose p, .prose li {
+                font-size: 0.95rem;
+                line-height: 1.7;
             }
-
-            .nav-right {
-                gap: 0.5rem 0.75rem;
-                font-size: 0.68rem;
-            }
-
-            .hero h1 {
-                font-size: 2.25rem;
-            }
-
-            .writing-list a {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
-<body>
-    <nav>
-        <span class="nav-left">samyak</span>
-        <div class="nav-right">
-            <a href="#about">about</a>
-            <a href="#experience">experience</a>
-            <a href="#projects">projects</a>
-            <a href="#oss">oss</a>
-            <a href="#writing">writing</a>
-            <a href="#testimonials">testimonials</a>
-            <a href="#contact">contact</a>
+<body class="min-h-screen flex flex-col items-center">
+
+    <nav class="fixed top-4 sm:top-6 z-50">
+        <div class="nav-container flex items-center gap-5 sm:gap-7 px-5 sm:px-7 py-2 text-sm text-gray-500">
+            <a href="#writing" class="hover:text-gray-900 transition-colors">writing</a>
+            <a href="#oss" class="hover:text-gray-900 transition-colors">oss</a>
+            <a href="#podcast" class="hover:text-gray-900 transition-colors">podcast</a>
+            <a href="#projects" class="hover:text-gray-900 transition-colors">projects</a>
+            <a href="#testimonials" class="hover:text-gray-900 transition-colors">testimonials</a>
+            <a href="https://cal.com/samyakb/30min" target="_blank" class="hover:text-gray-900 transition-colors">contact</a>
         </div>
     </nav>
 
-    <main>
-        <section class="hero">
-            <h1>Samyak <em>shapes narratives</em> around developer tools & deeptech.</h1>
-            <p class="lead">
-                DevRel @ heart. Currently leading growth at Quarq Labs after starting there as a technical writing intern. Deeply invested in agents, RAG, and the infrastructure powering the next generation of builders.
-                <a href="#contact">Let's talk.</a>
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
+
+        <header class="mb-16 text-center">
+            <div class="mb-6 px-4 py-1 border border-gray-100 bg-gray-50 rounded-full text-[10px] tracking-[0.2em] text-gray-400 uppercase font-semibold inline-block">
+                DevRel · Deeptech · Agents
+            </div>
+            <h1 class="serif-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-800 leading-tight mb-6">
+                Samyak Bharsakle
+            </h1>
+        </header>
+
+        <div class="prose prose-lg mx-auto">
+            <p class="mb-6">
+                I'm Samyak. I write about developer tools and deeptech, and I'm obsessed
+                with agents and the strange new infrastructure being built around them.
             </p>
-            <div class="hero-stats">
-                <span>~10k followers</span>
-                <span class="divider">·</span>
-                <span>150k+ monthly impressions</span>
-            </div>
-        </section>
 
-        <section id="about" class="about fade-in">
-            <div class="section-label">Background</div>
-            <p>
-                I've led technical clubs, tried starting a biotech research lab (failed miserably), 
-                ran an AI agency (learned it wasn't for me), and now host a <a href="#">podcast about deeptech founders</a>.
+            <p class="mb-6">
+                Right now I lead growth at <a href="https://quarq.io" target="_blank">Quarq Labs</a>,
+                an embodied intelligence startup. I walked in as a technical writing intern
+                and ended up owning the story: taking work that's genuinely hard to explain
+                and turning it into something people actually want to read. 
+		
+		<br><br>
+
+
+		I grew
+                <a href="https://x.com/quarqlabs" target="_blank">@quarqlabs</a> from 100 to
+                1,000 followers in under a month. Across everything I have around 10k
+                followers and 150k+ monthly impressions, for whatever that's worth.
             </p>
-            <p>
-                Looking back, I've always been doing DevRel—building communities, creating content, 
-                and helping people navigate complex technical landscapes. The title just didn't exist yet.
+
+            <p class="mb-6">
+                I've done a lot of things that didn't work. I led technical clubs. I tried
+                to start a biotech research lab and failed miserably. I ran an AI agency and
+                figured out it wasn't for me. Somewhere in there I realized I'd been doing
+                DevRel/Growth the whole time, building communities, writing, helping people make
+                sense of hard technical things. I just didn't have a word for it yet.
             </p>
-            <p>
-                At Quarq Labs, I started as a pure technical writer during a 3-month internship and grew into leading growth: turning deep technical work into clear narratives, launch moments, and distribution.
+
+            <p class="mb-10">
+                If any of this sounds interesting, just email me, find me on
+                <a href="https://twitter.com/smykx" target="_blank">Twitter</a>, or
+                <a href="https://cal.com/samyakb/30min" target="_blank">book a call</a>.
+                I like talking to people.
             </p>
-            <div class="impact-highlight">
-                <div class="impact-stat">
-                    <strong>~10k</strong>
-                    <span>followers across platforms</span>
-                </div>
-                <div class="impact-stat">
-                    <strong>150k+</strong>
-                    <span>monthly impressions</span>
-                </div>
-            </div>
-            <div class="interests">
-                <span>devrel</span>
-                <span>devtools</span>
-                <span>applied ai</span>
-                <span>agents</span>
-                <span>rag</span>
-                <span>communities</span>
-                <span>deeptech</span>
-            </div>
-        </section>
 
-        <section id="experience" class="fade-in">
-            <div class="section-label">Experience</div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>
-                        Quarq Labs
-                        <span class="status github">growth</span>
-                    </h3>
-                    <p>Started as a technical writing intern on a 3-month stint, writing deeply technical pieces for an embodied intelligence startup. Now leading growth across narrative, content strategy, launches, and distribution, including growing @quarqlabs on X from 100 to 1k followers in under a month.</p>
-                    <div class="links">
-                        <a href="https://x.com/quarqlabs/articles" target="_blank">
-                            articles
-                        </a>
-                        <a href="https://quarq.io" target="_blank">
-                            website
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="fade-in">
-            <div class="section-label">Projects</div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>
-                        Deep Research Agent
-                        <span class="status github">github</span>
-                    </h3>
-                    <p>Full-stack agent that autonomously researches topics across the web.</p>
-                    <div class="links">
-                        <a href="https://github.com/samyak1729/deep-research-full-stack" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            source
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        RAG from Scratch
-                        <span class="status colab">colab</span>
-                    </h3>
-                    <p>Notebook series breaking down retrieval-augmented generation step by step.</p>
-                    <div class="links">
-                        <a href="https://github.com/samyak1729/genai-course/blob/main/rag_tutorial_claude.ipynb" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            notebook
-                        </a>
-                        <a href="https://www.notion.so/samyak-b/Docuflow-rag-1d8d0f70812080178bb8c21eef74661c" target="_blank">
-                            blog
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        SQL Agent
-                        <span class="status colab">colab</span>
-                    </h3>
-                    <p>Natural language to SQL queries using LLM reasoning.</p>
-                    <div class="links">
-                        <a href="https://github.com/samyak1729/genai-course/blob/main/SQL_Agent_Tutorial_claude.ipynb" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            notebook
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Founder RAG
-                        <span class="status github">github</span>
-                    </h3>
-                    <p>RAG system tailored for founder resources and startup knowledge bases.</p>
-                    <div class="links">
-                        <a href="https://github.com/samyak1729/founder-rag" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            source
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Startup RAG
-                        <span class="status github">github</span>
-                    </h3>
-                    <p>Enterprise-grade documentation RAG with retrieval optimization.</p>
-                    <div class="links">
-                        <a href="https://github.com/samyak1729/startup-rag" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            source
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Git from Scratch
-                        <span class="status wip">wip</span>
-                    </h3>
-                    <p>Rebuilding Git's core functionality in Python to understand it deeply.</p>
-                    <div class="links">
-                        <span style="color: var(--text-muted); font-size: 0.7rem;">coming soon</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="oss" class="fade-in">
-            <div class="section-label">Open Source</div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>
-                        Add overview descriptions to API and SDK documentation
-                        <span class="status github">opentelemetry-python</span>
-                    </h3>
-                    <p>Replaced TODO placeholders in docs/api/index.rst, docs/sdk/index.rst, and docs/sdk/environment_variables.rst with concise descriptions explaining what the API and SDK are and their relationship to each other.</p>
-                    <div class="links">
-                        <a href="https://github.com/open-telemetry/opentelemetry-python/pull/5024" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            PR #5024
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Add E2E tests for llm.call with multiple image formats
-                        <span class="status github">mirascope</span>
-                    </h3>
-                    <p>Expanded image E2E tests from single PNG-only to parametrized tests covering all supported MIME types: PNG, JPEG, WebP, GIF, HEIC, and HEIF. Received compliment from maintainer (ex-Google Brain, co-author of TensorFlow).</p>
-                    <div class="links">
-                        <a href="https://github.com/Mirascope/mirascope/pull/2529" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            PR #2529
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Improve language support documentation for code chunker
-                        <span class="status github">chonkie</span>
-                    </h3>
-                    <p>Added list of languages supported by tree-sitter-language-pack, documented Auto language detection support by Magik, and added example for initializing code chunker with auto detection.</p>
-                    <div class="links">
-                        <a href="https://github.com/chonkie-inc/chonkie/pull/451" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            PR #451
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Add LlamaIndex + Chonkie document Q&A tutorial
-                        <span class="status github">chonkie cookbook</span>
-                    </h3>
-                    <p>Created cookbook tutorial for document Q&A using LlamaIndex and Chonkie. Got mentioned in Qdrant meeting and received compliment from YC engineer.</p>
-                    <div class="links">
-                        <a href="https://github.com/chonkie-inc/cookbook/pull/5" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            PR #5
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>
-                        Docs: fix trace_config docstring
-                        <span class="status github">opentelemetry-python</span>
-                    </h3>
-                    <p>Documented the unused trace_config parameter in Span.__init__. The parameter was a placeholder from the original span implementation but was never wired up after upstream OpenTelemetry protocol removed TraceConfig in proto v0.20.</p>
-                    <div class="links">
-                        <a href="https://github.com/open-telemetry/opentelemetry-python/pull/5025" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            PR #5025
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="writing" class="fade-in">
-            <div class="section-label">Writing</div>
-            <ul class="writing-list">
-                <li>
-                    <a href="https://samyak1729.github.io/hermes-blog/" target="_blank">
-                        <span class="title">Understanding Hermes From An Agentic Memory Perspective</span>
-                        <span>
-                            <span class="tag">agents</span>
-                            <span class="meta">Apr 2026</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com/quarqlabs/articles" target="_blank">
-                        <span class="title">Quarq Labs Articles Index</span>
-                        <span>
-                            <span class="tag">growth</span>
-                            <span class="meta">x articles</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com/quarqlabs/status/2061571757488972153" target="_blank">
-                        <span class="title">98.2% on LongMemEval: How We Built an Open-Source Agent That Actually Remembers</span>
-                        <span>
-                            <span class="tag">agents</span>
-                            <span class="meta">Jun 2026</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com/quarqlabs/status/2064405734981505465" target="_blank">
-                        <span class="title">The Map of Robot Learning</span>
-                        <span>
-                            <span class="tag">robotics</span>
-                            <span class="meta">Jun 2026</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com/quarqlabs/articles" target="_blank">
-                        <span class="title">The Tooling Gap in Robot Learning</span>
-                        <span>
-                            <span class="tag">robotics</span>
-                            <span class="meta">Jun 2026</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.notion.so/samyak-b/Docuflow-rag-1d8d0f70812080178bb8c21eef74661c" target="_blank">
-                        <span class="title">RAG from Scratch Series</span>
-                        <span>
-                            <span class="tag">series</span>
-                            <span class="meta">notion</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.notion.so/samyak-b/asha-chatbot-1d8d0f7081208082a0f9f46959326c15" target="_blank">
-                        <span class="title">Asha AI Blog Series</span>
-                        <span>
-                            <span class="tag">series</span>
-                            <span class="meta">notion</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.notion.so/samyak-b/Deep-Research-20cd0f70812080319a67c2cace6ccfc0" target="_blank">
-                        <span class="title">Deep Research: Understanding Autonomous Agents</span>
-                        <span>
-                            <span class="tag">ai</span>
-                            <span class="meta">notion</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://medium.com/@samyakb/you-thought-looping-mutates-the-list-cute-cbca7fc81121" target="_blank">
-                        <span class="title">You Thought Looping Mutates the List? Cute.</span>
-                        <span>
-                            <span class="tag">fundamentals</span>
-                            <span class="meta">medium</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://medium.com/@samyakb/beginners-guide-to-using-uv-for-python-package-management-935fc25cfe78" target="_blank">
-                        <span class="title">Beginner's Guide to uv for Python Package Management</span>
-                        <span>
-                            <span class="tag">fundamentals</span>
-                            <span class="meta">medium</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://medium.com/@samyakb/how-to-read-a-real-open-source-codebase-a-beginners-field-guide-d38dcffdc506" target="_blank">
-                        <span class="title">How to Read a Real Open Source Codebase</span>
-                        <span>
-                            <span class="tag">fundamentals</span>
-                            <span class="meta">medium</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://medium.com/@samyakb/how-to-scrape-webpages-and-save-them-as-markdown-using-firecrawl-api-22e0ef2de510" target="_blank">
-                        <span class="title">Scraping Webpages as Markdown with Firecrawl</span>
-                        <span>
-                            <span class="tag">tutorial</span>
-                            <span class="meta">medium</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://medium.com/@samyakb/is-n8n-a-grift-ed4c7e5fa55a" target="_blank">
-                        <span class="title">Is n8n a Grift?</span>
-                        <span>
-                            <span class="tag">opinion</span>
-                            <span class="meta">medium</span>
-                        </span>
-                    </a>
-                </li>
+            <h2 id="writing" class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Writing</h2>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><a href="https://samyak1729.github.io/hermes-blog/" target="_blank">Understanding Hermes From An Agentic Memory Perspective</a> <span class="meta">Apr 2026</span></li>
+                <li><a href="https://x.com/quarqlabs/status/2061571757488972153" target="_blank">98.2% on LongMemEval: An Open-Source Agent That Actually Remembers</a> <span class="meta">Jun 2026</span></li>
+                <li><a href="https://x.com/quarqlabs/status/2064405734981505465" target="_blank">The Map of Robot Learning</a> <span class="meta">Jun 2026</span></li>
+                <li><a href="https://x.com/quarqlabs/articles" target="_blank">The Tooling Gap in Robot Learning</a> <span class="meta">Jun 2026</span></li>
+                <li><a href="https://x.com/quarqlabs/articles" target="_blank">Quarq Labs articles index</a></li>
+                <li><a href="https://medium.com/@samyakb/beginners-guide-to-using-uv-for-python-package-management-935fc25cfe78" target="_blank">Beginner's Guide to uv for Python Package Management</a></li>
+                <li><a href="https://medium.com/@samyakb/how-to-read-a-real-open-source-codebase-a-beginners-field-guide-d38dcffdc506" target="_blank">How to Read a Real Open Source Codebase</a></li>
             </ul>
-        </section>
 
-        <section id="testimonials" class="fade-in">
-            <div class="section-label">Testimonials</div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="lain-endorse.png" alt="Testimonial from Lain">
-                </div>
-                <div class="testimonial-card">
-                    <img src="lain-endorse2.png" alt="Testimonial from Lain">
-                </div>
-                <div class="testimonial-card">
-                    <img src="dandelion-endorse.png" alt="Testimonial from Dandelion">
-                </div>
-            </div>
-        </section>
+            <h2 id="oss" class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Open source contributions</h2>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><strong class="text-gray-700 font-bold">opentelemetry-python</strong>: <a href="https://github.com/open-telemetry/opentelemetry-python/pull/5024" target="_blank">Overview descriptions for API/SDK docs</a></li>
+                <li><strong class="text-gray-700 font-bold">mirascope</strong>: <a href="https://github.com/Mirascope/mirascope/pull/2529" target="_blank">E2E tests for multiple image formats</a></li>
+                <li><strong class="text-gray-700 font-bold">chonkie</strong>: <a href="https://github.com/chonkie-inc/chonkie/pull/451" target="_blank">Language support docs for code chunker</a></li>
+                <li><strong class="text-gray-700 font-bold">chonkie cookbook</strong>: <a href="https://github.com/chonkie-inc/cookbook/pull/5" target="_blank">LlamaIndex + Chonkie document Q&amp;A tutorial</a></li>
+                <li><strong class="text-gray-700 font-bold">opentelemetry-python</strong>: <a href="https://github.com/open-telemetry/opentelemetry-python/pull/5025" target="_blank">Fix trace_config docstring</a></li>
+            </ul>
 
-        <section class="fade-in">
-            <div class="section-label">Social Analytics</div>
-            <div style="display: flex; gap: 3rem; margin-bottom: 2rem;">
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent);">~10k</div>
-                    <div style="font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Followers</div>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent);">150k+</div>
-                    <div style="font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Monthly Impressions</div>
-                </div>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="linkedin-analytics.png" alt="LinkedIn Analytics">
-                </div>
-                <div class="testimonial-card">
-                    <img src="x-analytics.png" alt="X (Twitter) Analytics">
-                </div>
-            </div>
-        </section>
+            <h2 id="podcast" class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Podcast</h2>
+            <p class="mb-6">
+                I run <a href="https://www.youtube.com/@escvelocitypod" target="_blank">Escape Velocity</a>,
+                a podcast on a small mission to build a deeptech-focused content media house.
+                The ecosystem is evolving fast, and content sits in the middle of all of it. It's
+                the medium we use to exchange ideas, inspiration, and visions of the future India.
+            </p>
+            <p class="mb-6">
+                The goal is simple: get the ideas of deeptech founders out there. Most talks and
+                pods are by VCs, not the people actually building. I'm trying to bridge that gap,
+                and hoping to inspire the next generation to become the next Bhabha, Sarabhai, and
+                Kalam. New episodes every week.
+            </p>
 
-        <section class="fade-in">
-            <div class="section-label">Resources Created</div>
-            <div class="resources-grid">
-                <div class="resource-card">
-                    <h3><a href="https://github.com/samyak1729/genai-course" target="_blank">GenAI from First Principles</a></h3>
-                    <p>Educational content covering LLMs, RAG, and agents from the ground up.</p>
-                </div>
-                <div class="resource-card">
-                    <h3><a href="https://github.com/samyak1729/concept-handbook" target="_blank">Backend from Scratch</a></h3>
-                    <p>Concept handbook for building backend systems from first principles.</p>
-                </div>
-            </div>
-        </section>
+            <h2 id="projects" class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Projects</h2>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><a href="https://github.com/samyak1729/deep-research-full-stack" target="_blank">Deep Research Agent</a>: autonomously researches topics across the web.</li>
+                <li><a href="https://github.com/samyak1729/genai-course/blob/main/SQL_Agent_Tutorial_claude.ipynb" target="_blank">SQL Agent</a>: natural language to SQL using LLM reasoning.</li>
+                <li>Git from Scratch: rebuilding Git's core in Python to understand it deeply. <span class="meta">wip</span></li>
+            </ul>
 
-        <section id="contact" class="cta fade-in">
-            <h2>Let's build something.</h2>
-            <p>If you're hiring for DevRel—or just want to chat about devtools, AI agents, or deeptech startups.</p>
-            <a href="https://cal.com/samyakb/30min" class="cal-btn" target="_blank">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Book a call
-            </a>
-        </section>
+            <h2 class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Resources I am building</h2>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><a href="https://github.com/samyak1729/genai-course" target="_blank">GenAI from First Principles</a>: LLMs, RAG, and agents from the ground up.</li>
+                <li><a href="https://github.com/samyak1729/concept-handbook" target="_blank">Backend from Scratch</a>: building backend systems from first principles.</li>
+            </ul>
+
+            <h2 id="testimonials" class="text-2xl sm:text-3xl text-gray-800 mt-12 mb-5">Testimonials</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <img src="lain-endorse.png" alt="Testimonial" class="w-full rounded-lg border border-gray-100 shadow-sm cursor-zoom-in js-zoom">
+                <img src="lain-endorse2.png" alt="Testimonial" class="w-full rounded-lg border border-gray-100 shadow-sm cursor-zoom-in js-zoom">
+                <img src="dandelion-endorse.png" alt="Testimonial" class="w-full rounded-lg border border-gray-100 shadow-sm cursor-zoom-in js-zoom">
+            </div>
+        </div>
+
     </main>
 
-    <div class="lightbox" id="lightbox">
-        <img id="lightbox-img" src="" alt="Preview">
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 cursor-zoom-out p-4">
+        <img id="lightbox-img" src="" alt="Preview" class="max-w-[90%] max-h-[90%] object-contain rounded-lg">
     </div>
 
-    <footer>
-        <div class="social-links">
-            <a href="https://github.com/samyak1729" target="_blank">github</a>
-            <a href="https://www.linkedin.com/in/samyak-bharsakle/" target="_blank">linkedin</a>
-            <a href="https://twitter.com/smykx" target="_blank">twitter</a>
+    <footer class="py-12 text-center text-sm text-gray-400">
+        <div class="flex items-center justify-center gap-4 mb-3">
+            <a href="https://github.com/samyak1729" target="_blank" class="hover:text-gray-700 transition-colors">github</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/samyak-bharsakle/" target="_blank" class="hover:text-gray-700 transition-colors">linkedin</a>
+            <span>·</span>
+            <a href="https://twitter.com/smykx" target="_blank" class="hover:text-gray-700 transition-colors">twitter</a>
         </div>
-        <p>samyak — building in public</p>
+        <p>Built with love by Samyak.</p>
     </footer>
 
     <script>
-        // Nav scroll effect
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-
-        document.querySelectorAll('.testimonial-card img, .testimonials-grid img').forEach(img => {
+        document.querySelectorAll('.js-zoom').forEach(img => {
             img.addEventListener('click', () => {
                 lightboxImg.src = img.src;
-                lightbox.classList.add('active');
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
             });
         });
-
         lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
         });
     </script>
+
 </body>
 </html>
